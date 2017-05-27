@@ -4,12 +4,12 @@ module.exports = function(app) {
   
   // todoList Routes
   app.route('/cars')
-    .get(cars.list_all_cars)
-    .post(cars.create_a_car);
+    .get(cars.list_all_Cars)
+    /*.post(cars.create_a_car)*/;
 
 
-  app.route('/cars/:carId')
+  /*app.route('/cars/:carId')
     .get(cars.read_a_car)
     .put(cars.update_a_car)
-    .delete(cars.delete_a_car);
+    .delete(cars.delete_a_car); */
 };

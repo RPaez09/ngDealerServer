@@ -1,18 +1,19 @@
-var express = require('express'),
+var express = require('express');
+var mongoose = require('mongoose');
+var Car = require('./api/models/carModel');
+var routes = require('./api/routes/carRoutes');
+var connectionString = 'mongodb://localhost/ngDealer';
 
-app = express(),
-port = process.env.PORT || 3000,
-mongoose = require('mongoose'),
-Car = require('./api/models/carModel'),
+var app = express();
+var port = process.env.PORT || 3000;
 bodyParser = require('body-parser');
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/ngDealer');
+mongoose.connect(connectionString);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var routes = require('./api/routes/carRoutes');
 routes(app);
 
 app.listen(port);

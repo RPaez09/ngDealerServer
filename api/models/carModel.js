@@ -12,6 +12,10 @@ var carSchema = new Schema({
       type: String,
       Reqired: 'Please supply the model'
   },
+  year: {
+    type: Number,
+    Requried: 'Please supply the model year'
+  },
   Created_date: {
     type: Date,
     default: Date.now

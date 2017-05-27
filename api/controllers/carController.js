@@ -11,6 +11,14 @@ exports.list_all_Cars = function(req, res) {
   });
 };
 
+exports.list_by_Make = function(req, res) {
+  Car.find( { make: req.params.carMake } , function(err, car) {
+    if (err)
+      res.send(err);
+    res.json(car);
+  });
+};
+
 exports.create_a_car = function(req, res) {
   var new_car = new Car(req.body);
   new_car.save(function(err, car) {

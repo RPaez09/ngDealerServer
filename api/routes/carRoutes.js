@@ -8,6 +8,7 @@ module.exports = function(app) {
   .post(cars.create_a_car);
 
   app.route('/cars/:id')
+  .get(cars.read_a_car)
   .delete(cars.delete_a_car);
 
   app.route('/cars/make/:carMake')

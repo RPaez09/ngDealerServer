@@ -26,10 +26,10 @@ exports.create_a_car = function(req, res) {
 };
 
 exports.read_a_car = function(req, res) {
-  Car.findById(req.params.carId, function(err, car) {
+  Car.find( { _id: req.params.id } ).then(function(err, car) {
     if (err)
       res.send(err);
-    res.json(car);
+    res.send(car)
   });
 };
 

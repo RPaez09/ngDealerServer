@@ -26,17 +26,25 @@ exports.create_a_car = function(req, res) {
 };
 
 exports.read_a_car = function(req, res) {
-  Car.find( { _id: req.params.id } ).then(function(car, err) {
-    if(err){
-      res.send("err" + err);
-    }
-    else if (car.length == 0){
-      res.status(404).send("Car not found");
-    }
-    else{
-      res.send(car);
-    }
-  });
+
+  if(mongoose.Types.ObjectId.isValid( req.params.id) ) {
+
+    Car.findById(req.params.id).then(function(car, err) {
+      if(err){
+        res.send("err" + err);
+      }
+      else if (car == null){
+        res.status(404).send("Car not found");
+      }
+      else{
+        res.send(car);
+      }
+    });
+  }
+
+  else {
+    res.status(404).send("Car not found");
+  }
 };
 
 exports.update_a_car = function(req, res) {

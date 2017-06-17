@@ -26,10 +26,16 @@ exports.create_a_car = function(req, res) {
 };
 
 exports.read_a_car = function(req, res) {
-  Car.find( { _id: req.params.id } ).then(function(err, car) {
-    if (err)
-      res.send(err);
-    res.send(car)
+  Car.find( { _id: req.params.id } ).then(function(car, err) {
+    if(err){
+      res.send("err" + err);
+    }
+    else if (car.length == 0){
+      res.status(404).send("Car not found");
+    }
+    else{
+      res.send(car);
+    }
   });
 };
 

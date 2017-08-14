@@ -16,6 +16,10 @@ var carSchema = new Schema({
     type: Number,
     Requried: 'Please supply model year'
   },
+  price: {
+    type: Number,
+    Required: 'Please supply the vehicle price'
+  },
   mileage: {
     type: Number,
     Required: 'Please supply vehicle mileage'

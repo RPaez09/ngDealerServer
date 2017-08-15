@@ -25,7 +25,7 @@ var carSchema = new Schema({
     Required: 'Please supply vehicle mileage'
   },
   color: {
-    type: Number,
+    type: String,
     Required: 'Please supply the vehicle color'
   },
   trim: {

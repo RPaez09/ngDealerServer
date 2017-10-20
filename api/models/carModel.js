@@ -31,6 +31,9 @@ var carSchema = new Schema({
   trim: {
     type: String
   },
+  description: {
+    type: String
+  },
   hidden: {
     type: Boolean,
     default: false

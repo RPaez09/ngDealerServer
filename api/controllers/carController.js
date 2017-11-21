@@ -27,7 +27,7 @@ exports.create_a_car = function(req, res) {
 
 exports.read_a_car = function(req, res) {
 
-  if(mongoose.Types.ObjectId.isValid( req.params.id) ) {
+  if(mongoose.Types.ObjectId.isValid( req.params.id) ) { // Check if car exists
 
     Car.findById(req.params.id).then(function(car, err) {
       if(err){
@@ -48,11 +48,35 @@ exports.read_a_car = function(req, res) {
 };
 
 exports.update_a_car = function(req, res) {
-  Car.findOneAndUpdate(req.params.carId, req.body, {new: true}, function(err, car) {
-    if (err)
-      res.send(err);
-    res.json(car);
-  });
+
+  console.log("Finding car with ID = " + req.params.id);
+  console.log(req.body);
+
+  if(mongoose.Types.ObjectId.isValid( req.params.id ) ) { // Check if car exists
+    
+    console.log("Car found");
+
+    console.log("Attempting to replace price with: " + req.body.price);
+
+    var query = {"_id" : req.params.id};
+    var update = {"$set" : {"price" : req.body.price } }; // only setting price to test
+    var options = { new : true };
+
+    Car.findOneAndUpdate( query , update , options , function( err , car ) {
+    
+      if( err ){
+        res.send( "error: " + err );
+      }
+
+      res.json(car);
+    
+    });
+  }
+
+  else {
+    res.status(404).send("Car not found");
+  }
+
 };
 
 exports.delete_a_car = function(req, res) {

@@ -54,7 +54,6 @@ exports.update_a_car = function(req, res) {
     var query = {"_id" : req.params.id};
     var update = {"$set" : 
       {"make" : req.body.make,
-      "make" : req.body.make,
       "model" : req.body.model,
       "year" : req.body.year,
       "price" : req.body.price,

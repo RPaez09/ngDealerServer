@@ -49,17 +49,21 @@ exports.read_a_car = function(req, res) {
 
 exports.update_a_car = function(req, res) {
 
-  console.log("Finding car with ID = " + req.params.id);
-  console.log(req.body);
-
   if(mongoose.Types.ObjectId.isValid( req.params.id ) ) { // Check if car exists
-    
-    console.log("Car found");
-
-    console.log("Attempting to replace price with: " + req.body.price);
 
     var query = {"_id" : req.params.id};
-    var update = {"$set" : {"price" : req.body.price } }; // only setting price to test
+    var update = {"$set" : 
+      {"make" : req.body.make,
+      "make" : req.body.make,
+      "model" : req.body.model,
+      "year" : req.body.year,
+      "price" : req.body.price,
+      "mileage" : req.body.mileage,
+      "color" : req.body.color,
+      "trim" : req.body.trim,
+      "description" : req.body.description,
+      "hidden" : req.body.hidden } 
+    };
     var options = { new : true };
 
     Car.findOneAndUpdate( query , update , options , function( err , car ) {

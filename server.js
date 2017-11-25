@@ -1,12 +1,18 @@
-var express = require('express');
-var mongoose = require('mongoose');
-var Car = require('./api/models/carModel');
-var routes = require('./api/routes/carRoutes');
-var DBconfig = require('./config/database.js');
+var bodyParser  = require('body-parser');
+var Car         = require('./api/models/carModel');
+var cookieParser= require('cookie-parser');
+var DBconfig    = require('./config/database.js');
+var express     = require('express');
+var flash       = require('connect-flash');
+var mongoose    = require('mongoose');
+var morgan      = require('morgan');
+var passport    = require('passport');
+var routes      = require('./api/routes/carRoutes');
+var session     = require('express-session');
 
 var app = express();
+
 var port = process.env.PORT || 3000;
-bodyParser = require('body-parser');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(DBconfig.url);

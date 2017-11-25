@@ -17,6 +17,7 @@ var port = process.env.PORT || 3000;
 mongoose.Promise = global.Promise;
 mongoose.connect(DBconfig.url);
 
+app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(function(req, res, next) {

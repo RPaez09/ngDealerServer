@@ -1,4 +1,5 @@
 var bodyParser  = require('body-parser');
+var Car         = require('./api/models/carModel');
 var cookieParser= require('cookie-parser');
 var express     = require('express');
 var config      = require('./config/database.js');

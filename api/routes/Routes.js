@@ -2,6 +2,7 @@
 module.exports = function(app) {
   
   var cars = require('../controllers/carController');
+  var users = require('../controllers/userController');
   
   app.route('/cars')
   .get(cars.list_all_cars)
@@ -14,4 +15,7 @@ module.exports = function(app) {
 
   app.route('/cars/make/:carMake')
     .get(cars.list_by_make);
+
+  app.route('/signup')
+    .post(users.create_a_user);
 };

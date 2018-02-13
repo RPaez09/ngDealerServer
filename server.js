@@ -13,7 +13,7 @@ var port = process.env.PORT || 3000;
 
 //DB setup
 mongoose.Promise = global.Promise;
-mongoose.connect(config.url);
+mongoose.connect(config.url , { useMongoClient: true });
 
 app.use(morgan('dev'));
 app.use(cookieParser());

@@ -33,10 +33,16 @@ exports.list_by_make = function(req, res) {
   });
 };
 
-exports.create_a_car = function(req, res) {
-  Car.create(req.body).then(function(car){
-    res.send(car);
-  });
+exports.create_a_car = function(req, res) { //protect me
+  var token = getToken( req.headers );
+
+  if( token ){
+    Car.create(req.body).then(function(car){
+      res.send(car);
+    });
+  } else {
+    return res.status(403).send( { success: false, msg: 'Unauthorized' } );
+  }
 };
 
 exports.read_a_car = function(req, res) {

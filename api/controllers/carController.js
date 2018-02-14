@@ -68,43 +68,52 @@ exports.read_a_car = function(req, res) {
 };
 
 exports.update_a_car = function(req, res) {
+  var token = getToken( req.headers );
 
-  if(mongoose.Types.ObjectId.isValid( req.params.id ) ) { // Check if car exists
+  if( token ){
+    if(mongoose.Types.ObjectId.isValid( req.params.id ) ) { // Check if car exists
 
-    var query = {"_id" : req.params.id};
-    var update = {"$set" : 
-      {"make" : req.body.make,
-      "model" : req.body.model,
-      "year" : req.body.year,
-      "price" : req.body.price,
-      "mileage" : req.body.mileage,
-      "color" : req.body.color,
-      "trim" : req.body.trim,
-      "description" : req.body.description,
-      "hidden" : req.body.hidden } 
-    };
-    var options = { new : true };
+      var query = {"_id" : req.params.id};
+      var update = {"$set" : 
+        {"make" : req.body.make,
+        "model" : req.body.model,
+        "year" : req.body.year,
+        "price" : req.body.price,
+        "mileage" : req.body.mileage,
+        "color" : req.body.color,
+        "trim" : req.body.trim,
+        "description" : req.body.description,
+        "hidden" : req.body.hidden } 
+      };
+      var options = { new : true };
 
-    Car.findOneAndUpdate( query , update , options , function( err , car ) {
-    
-      if( err ){
-        res.send( "error: " + err );
-      }
+      Car.findOneAndUpdate( query , update , options , function( err , car ) {
+      
+        if( err ){
+          res.send( "error: " + err );
+        }
 
-      res.json(car);
-    
-    });
-  }
-
-  else {
-    res.status(404).send("Car not found");
+        res.json(car);
+      
+      });
+    } else {
+      return res.status(404).send("Car not found");
+    }
+  } else {
+    return res.status(403).send( { success: false, msg: 'Unauthorized' } );
   }
 
 };
 
 exports.delete_a_car = function(req, res) {
-  Car.findByIdAndRemove( { _id: req.params.id } ).then(function(car) {
-    res.send(car);
-  });
+  var token = getToken( req.headers );
+
+  if( token ){
+    Car.findByIdAndRemove( { _id: req.params.id } ).then(function(car) {
+      res.send(car);
+    });
+  } else {
+    return res.status(403).send( { success: false, msg: 'Unauthorized' } );
+  }
 };
 

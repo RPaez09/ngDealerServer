@@ -1,3 +1,6 @@
+var passport = require('passport');
+var passportConfig = require('../../config/passport')( passport );
+
 'use strict';
 module.exports = function(app) {
   
@@ -6,7 +9,7 @@ module.exports = function(app) {
   
   app.route('/cars')
   .get(cars.list_all_cars)
-  .post(cars.create_a_car);
+  .post( passport.authenticate( 'jwt' , { session: false}) , cars.create_a_car);
 
   app.route('/cars/:id')
   .get(cars.read_a_car)

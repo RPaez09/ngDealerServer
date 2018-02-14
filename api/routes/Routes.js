@@ -8,20 +8,20 @@ module.exports = function(app) {
   var users = require('../controllers/userController');
   
   app.route('/cars')
-  .get(cars.list_all_cars)
-  .post( passport.authenticate( 'jwt' , { session: false}) , cars.create_a_car);
+  .get( cars.list_all_cars )
+  .post( passport.authenticate( 'jwt' , { session: false}) , cars.create_a_car );
 
   app.route('/cars/:id')
-  .get(cars.read_a_car)
-  .put(cars.update_a_car)
-  .delete(cars.delete_a_car);
+  .get( cars.read_a_car )
+  .put( passport.authenticate( 'jwt' , { session: false}) , cars.update_a_car )
+  .delete( passport.authenticate( 'jwt' , { session: false}) , cars.delete_a_car );
 
   app.route('/cars/make/:carMake')
-    .get(cars.list_by_make);
+    .get( cars.list_by_make );
 
   app.route('/signup')
-    .post(users.create_a_user);
+    .post( users.create_a_user );
 
   app.route('/signin')
-    .post(users.sign_in);
+    .post( users.sign_in );
 };
